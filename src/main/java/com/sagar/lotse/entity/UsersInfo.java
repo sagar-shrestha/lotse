@@ -1,6 +1,7 @@
 package com.sagar.lotse.entity;
 
 import com.sagar.lotse.common.constant.Gender;
+import com.sagar.lotse.common.constant.UserCategory;
 import com.sagar.lotse.common.entity.Details;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,14 @@ public class UsersInfo extends Details implements Serializable {
     private String lastName;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
-
+    private String temporaryAddress;
+    private String personalAddress;
+    private String currentAddress;
+    private String email;
+    private String alternateEmail;
+    private String mobileNumber;
+    private String alternateMobileNumber;
+    private String phoneNumber;
+    @Enumerated(EnumType.STRING)
+    private UserCategory userCategory;
 }
