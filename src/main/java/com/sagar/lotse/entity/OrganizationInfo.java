@@ -11,16 +11,13 @@ import java.io.Serializable;
 @Table(name = "organization_info")
 @Getter
 @Setter
-public class OrganizationInfo extends Details implements Serializable {
+public class OrganizationInfo extends Details{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "organization_info_gen")
     @SequenceGenerator(name = "organization_info_gen", sequenceName = "organization_info_seq" , allocationSize = 1)
     private Integer id;
-    private String name;
+    private String organizationName;
     private String address;
     private String panOrVat;
-    private String president;
-    private String charPerson;
-    private String dean;
-    private String Slogan;
+    private String logo;
 }
