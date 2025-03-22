@@ -1,5 +1,6 @@
 package com.sagar.lotse.common.entity;
 
+import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@MappedSuperclass
 public class Details implements Serializable {
     private LocalDateTime createdIn;
     private String createdBy;

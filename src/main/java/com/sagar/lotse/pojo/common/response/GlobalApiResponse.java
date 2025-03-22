@@ -1,4 +1,4 @@
-package com.sagar.lotse.pojo.common;
+package com.sagar.lotse.pojo.common.response;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,30 +1,25 @@
-package com.sagar.lotse.entity;
+package com.sagar.lotse.pojo.common.request;
 
 import com.sagar.lotse.common.constant.DocumentsType.DocumentsType;
 import com.sagar.lotse.common.constant.Gender;
 import com.sagar.lotse.common.constant.RegistrationCountry;
 import com.sagar.lotse.common.constant.RegistrationType;
 import com.sagar.lotse.common.constant.UserCategory;
-import com.sagar.lotse.common.entity.Details;
-import jakarta.persistence.*;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "user_info")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class UsersInfo extends Details implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_info_gen")
-    @SequenceGenerator(name = "user_info_gen", sequenceName = "user_info_seq", allocationSize = 1)
+@NoArgsConstructor
+public class UsersInfoRequestPojo {
     private Long id;
     private String firstName;
     private String middleName;
@@ -46,16 +41,16 @@ public class UsersInfo extends Details implements Serializable {
     @Enumerated(EnumType.STRING)
     private RegistrationType registrationType;
     private String registrationNumber;
-    private String userImage;
+    private MultipartFile userImage;
     @Enumerated(EnumType.STRING)
     private DocumentsType documentsType;
-    private String citizenshipImage;
-    private String drivingLicenseImage;
-    private String passportImage;
-    private String panCardImage;
-    private String voterIdImage;
-    private String nationalIdImage;
-    private String medicalLicenseImage;
+    private MultipartFile citizenshipImage;
+    private MultipartFile drivingLicenseImage;
+    private MultipartFile passportImage;
+    private MultipartFile panCardImage;
+    private MultipartFile voterIdImage;
+    private MultipartFile nationalIdImage;
+    private MultipartFile medicalLicenseImage;
     private String citizenshipNo;
     private LocalDate citizenshipIssuedDateInBs;
     private LocalDate citizenshipIssuedDateInAd;
