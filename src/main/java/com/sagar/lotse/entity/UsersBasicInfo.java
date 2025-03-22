@@ -12,12 +12,12 @@ import lombok.Setter;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "user_info")
+@Table(name = "users_basic_info")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsersInfo extends Details implements Serializable {
+public class UsersBasicInfo extends Details {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_info_gen")
     @SequenceGenerator(name = "user_info_gen", sequenceName = "user_info_seq", allocationSize = 1)
@@ -27,14 +27,7 @@ public class UsersInfo extends Details implements Serializable {
     private String lastName;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    private String temporaryAddress;
-    private String personalAddress;
-    private String currentAddress;
-    private String email;
-    private String alternateEmail;
-    private String mobileNumber;
-    private String alternateMobileNumber;
-    private String phoneNumber;
     @Enumerated(EnumType.STRING)
     private UserCategory userCategory;
+    private String userImage;
 }
