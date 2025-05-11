@@ -23,6 +23,8 @@ public interface UsersInfoService {
 
     UsersDocumentInfoResponsePojo getUsersDocumentInfo(Long id);
 
+    Object getUser(Long id);
+
     List<String> getGender();
 
     List<String> getUserCategory();
