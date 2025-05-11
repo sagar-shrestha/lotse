@@ -20,6 +20,7 @@ import java.time.LocalDate;
 public class UsersDocumentInfoRequestPojo {
 
     private Long id;
+    private Long usersBasicInfoId;
     @Enumerated(EnumType.STRING)
     private RegistrationCountry registrationCountry;
     @Enumerated(EnumType.STRING)

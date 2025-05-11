@@ -13,6 +13,8 @@ import com.sagar.lotse.pojo.common.request.UsersDocumentInfoRequestPojo;
 import com.sagar.lotse.pojo.common.response.UsersAddressInfoResponsePojo;
 import com.sagar.lotse.pojo.common.response.UsersBasicInfoResponsePojo;
 import com.sagar.lotse.pojo.common.response.UsersDocumentInfoResponsePojo;
+import com.sagar.lotse.projection.UserProjection;
+import com.sagar.lotse.repository.UserRepository;
 import com.sagar.lotse.repository.UsersAddressInfoRepository;
 import com.sagar.lotse.repository.UsersBasicInfoRepository;
 import com.sagar.lotse.repository.UsersDocumentInfoRepository;
@@ -34,6 +36,7 @@ public class UsersInfoServiceImpl implements UsersInfoService, CommonMessages {
 
     private final GenericFileUtil genericFileUtil;
     private final UsersInfoHelper usersInfoHelper;
+    private final UserRepository userRepository;
     private final UsersBasicInfoRepository usersBasicInfoRepository;
     private final UsersAddressInfoRepository usersAddressInfoRepository;
     private final UsersDocumentInfoRepository usersDocumentInfoRepository;
@@ -58,7 +61,6 @@ public class UsersInfoServiceImpl implements UsersInfoService, CommonMessages {
                 userImage = genericFileUtil.updateFile(usersBasicInfoRequestPojo.getUserImage(),
                         existingUsersBasicInfo.getUserImage());
             }
-
             userImage = genericFileUtil.saveFile(userImage);
             usersBasicInfo.setUserImage(userImage);
             usersBasicInfoRepository.save(usersBasicInfo);
@@ -94,6 +96,7 @@ public class UsersInfoServiceImpl implements UsersInfoService, CommonMessages {
     @Override
     public void saveAndUpdateUsersDocumentInfo(UsersDocumentInfoRequestPojo usersDocumentInfoRequestPojo) {
         UsersDocumentInfo usersDocumentInfo = new UsersDocumentInfo();
+        UsersBasicInfo usersBasicInfo = new UsersBasicInfo();
         UsersDocumentInfo existingUsersDocumentInfo = new UsersDocumentInfo();
         String citizenshipImage;
         String drivingLicenseImage;
@@ -112,6 +115,9 @@ public class UsersInfoServiceImpl implements UsersInfoService, CommonMessages {
                 voterIdImage = genericFileUtil.saveFileToTemp(usersDocumentInfoRequestPojo.getVoterIdImage());
                 nationalIdImage = genericFileUtil.saveFileToTemp(usersDocumentInfoRequestPojo.getNationalIdImage());
                 medicalLicenseImage = genericFileUtil.saveFileToTemp(usersDocumentInfoRequestPojo.getMedicalLicenseImage());
+                UsersBasicInfoResponsePojo usersBasicInfoResponsePojo = this.getUsersBasicInfo(usersDocumentInfoRequestPojo.getUsersBasicInfoId());
+                nullAwareBeanUtil.copyProperties(usersBasicInfo, usersBasicInfoResponsePojo);
+                usersDocumentInfo.setUsersBasicInfo(usersBasicInfo);
             } else {
                 existingUsersDocumentInfo = usersDocumentInfoRepository.findById(usersDocumentInfoRequestPojo.getId())
                         .orElseThrow(() -> new RuntimeException(USER + DATA_NOT_FOUND));
@@ -180,6 +186,11 @@ public class UsersInfoServiceImpl implements UsersInfoService, CommonMessages {
         } catch (InvocationTargetException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public UserProjection getUser(Long id) {
+        return userRepository.getUsersBasicInfoById(id);
     }
 
 

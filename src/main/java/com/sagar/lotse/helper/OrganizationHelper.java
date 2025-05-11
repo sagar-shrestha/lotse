@@ -34,10 +34,10 @@ public class OrganizationHelper implements CommonMessages {
     public List<OrganizationResponsePojo> getAllOrganizations() {
         try {
             List<OrganizationResponsePojo> organizationResponsePojoList = new ArrayList<>();
-            for (OrganizationInfo organizationInfo : organizationRepository.getAllOrganizations()) {
-                OrganizationResponsePojo organizationResponsePojo = apply(organizationInfo);
-                organizationResponsePojoList.add(organizationResponsePojo);
-            }
+//            for (OrganizationInfo organizationInfo : organizationRepository.getAllOrganizations(id)) {
+//                OrganizationResponsePojo organizationResponsePojo = apply(organizationInfo);
+//                organizationResponsePojoList.add(organizationResponsePojo);
+//            }
             return organizationResponsePojoList;
         } catch (Exception e) {
             return Collections.emptyList();

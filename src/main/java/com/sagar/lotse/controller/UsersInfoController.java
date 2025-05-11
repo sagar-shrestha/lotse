@@ -26,7 +26,7 @@ public class UsersInfoController implements CommonMessages {
         return ResponseEntity.ok(GlobalApiResponse
                 .builder()
                 .data(null)
-                .message(USER + (usersBasicInfoRequestPojo.getId() == null ? SAVED_SUCCESSFULLY : UPDATED_SUCCESSFULLY))
+                .message(USER + BASIC_INFO + (usersBasicInfoRequestPojo.getId() == null ? SAVED_SUCCESSFULLY : UPDATED_SUCCESSFULLY))
                 .status(true)
                 .build()
         );
@@ -39,7 +39,7 @@ public class UsersInfoController implements CommonMessages {
         return ResponseEntity.ok(GlobalApiResponse
                 .builder()
                 .data(null)
-                .message(USER + (usersAddressInfoRequestPojo.getId() == null ? SAVED_SUCCESSFULLY : UPDATED_SUCCESSFULLY))
+                .message(USER + ADDRESS_INFO + (usersAddressInfoRequestPojo.getId() == null ? SAVED_SUCCESSFULLY : UPDATED_SUCCESSFULLY))
                 .status(true)
                 .build());
     }
@@ -51,39 +51,46 @@ public class UsersInfoController implements CommonMessages {
         return ResponseEntity.ok(GlobalApiResponse
                 .builder()
                 .data(null)
-                .message(USER + (usersDocumentInfoRequestPojo.getId() == null ? SAVED_SUCCESSFULLY : UPDATED_SUCCESSFULLY))
+                .message(USER + DOCUMENT_INFO + (usersDocumentInfoRequestPojo.getId() == null ? SAVED_SUCCESSFULLY : UPDATED_SUCCESSFULLY))
                 .status(true)
                 .build());
     }
 
     @GetMapping("/getUsersBasicInfo")
-    public ResponseEntity<GlobalApiResponse> getUsersBasicInfo(@ModelAttribute @Valid
-                                                               UsersBasicInfoRequestPojo usersBasicInfoRequestPojo) {
+    public ResponseEntity<GlobalApiResponse> getUsersBasicInfo(@RequestParam Long id) {
         return ResponseEntity.ok(GlobalApiResponse
                 .builder()
-                .data(usersInfoService.getUsersBasicInfo(usersBasicInfoRequestPojo.getId()))
-                .message(USER + DATA_FETCHED_SUCCESSFULLY)
+                .data(usersInfoService.getUsersBasicInfo(id))
+                .message(USER + BASIC_INFO + DATA_FETCHED_SUCCESSFULLY)
                 .status(true)
                 .build());
     }
 
     @GetMapping("/getUsersAddressInfo")
-    public ResponseEntity<GlobalApiResponse> getUsersAddressInfo(@ModelAttribute @Valid
-                                                                 UsersAddressInfoRequestPojo usersAddressInfoRequestPojo) {
+    public ResponseEntity<GlobalApiResponse> getUsersAddressInfo(@RequestParam Long id) {
         return ResponseEntity.ok(GlobalApiResponse
                 .builder()
-                .data(usersInfoService.getUsersAddressInfo(usersAddressInfoRequestPojo.getId()))
-                .message(USER + DATA_FETCHED_SUCCESSFULLY)
+                .data(usersInfoService.getUsersAddressInfo(id))
+                .message(USER + ADDRESS_INFO + DATA_FETCHED_SUCCESSFULLY)
                 .status(true)
                 .build());
     }
 
     @GetMapping("/getUsersDocumentInfo")
-    public ResponseEntity<GlobalApiResponse> getUsersDocumentInfo(@ModelAttribute @Valid
-                                                                  UsersDocumentInfoRequestPojo usersDocumentInfoRequestPojo) {
+    public ResponseEntity<GlobalApiResponse> getUsersDocumentInfo(@RequestParam Long id) {
         return ResponseEntity.ok(GlobalApiResponse
                 .builder()
-                .data(usersInfoService.getUsersDocumentInfo(usersDocumentInfoRequestPojo.getId()))
+                .data(usersInfoService.getUsersDocumentInfo(id))
+                .message(USER + DOCUMENT_INFO + DATA_FETCHED_SUCCESSFULLY)
+                .status(true)
+                .build());
+    }
+
+    @GetMapping("/getUser")
+    public ResponseEntity<GlobalApiResponse> getUser(@RequestParam Long id) {
+        return ResponseEntity.ok(GlobalApiResponse
+                .builder()
+                .data(usersInfoService.getUser(id))
                 .message(USER + DATA_FETCHED_SUCCESSFULLY)
                 .status(true)
                 .build());

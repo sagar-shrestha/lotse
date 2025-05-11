@@ -8,6 +8,9 @@ public interface CommonMessages {
     String DATA_NOT_FOUND = "Data Not Found";
     String ORGANIZATION = "Organization ";
     String USER = "User ";
+    String BASIC_INFO = "Basic Info ";
+    String ADDRESS_INFO = "Address Info ";
+    String DOCUMENT_INFO = "Document Info ";
     String FILE_HANDLING_FAILED_ON_ROLLBACK = "File handling failed during rollback.";
     String FAILED_TO_SAVE = "failed to save.";
     String FAILED_TO_DELETE_IMAGE = "Failed to delete image.";

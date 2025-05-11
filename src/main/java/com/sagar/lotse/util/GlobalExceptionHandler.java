@@ -42,14 +42,14 @@ public class GlobalExceptionHandler implements CommonMessages {
                 .build());
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<GlobalApiResponse> handleRuntimeException(RuntimeException e) {
-        return ResponseEntity.ok(GlobalApiResponse.builder()
-                .data(null)
-                .message(e.getMessage())
-                .status(false)
-                .build());
-    }
+//    @ExceptionHandler(RuntimeException.class)
+//    public ResponseEntity<GlobalApiResponse> handleRuntimeException(RuntimeException e) {
+//        return ResponseEntity.ok(GlobalApiResponse.builder()
+//                .data(null)
+//                .message(e.getMessage())
+//                .status(false)
+//                .build());
+//    }
 
     @ExceptionHandler(IOException.class)
     public ResponseEntity<GlobalApiResponse> handleIOException(IOException e) {

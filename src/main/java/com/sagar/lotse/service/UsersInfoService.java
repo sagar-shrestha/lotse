@@ -6,6 +6,7 @@ import com.sagar.lotse.pojo.common.request.UsersDocumentInfoRequestPojo;
 import com.sagar.lotse.pojo.common.response.UsersAddressInfoResponsePojo;
 import com.sagar.lotse.pojo.common.response.UsersBasicInfoResponsePojo;
 import com.sagar.lotse.pojo.common.response.UsersDocumentInfoResponsePojo;
+import com.sagar.lotse.projection.UserProjection;
 
 import java.util.List;
 
@@ -22,6 +23,8 @@ public interface UsersInfoService {
     UsersAddressInfoResponsePojo getUsersAddressInfo(Long id);
 
     UsersDocumentInfoResponsePojo getUsersDocumentInfo(Long id);
+
+    UserProjection getUser(Long id);
 
     List<String> getGender();
 
