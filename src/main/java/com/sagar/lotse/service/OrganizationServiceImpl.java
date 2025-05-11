@@ -9,6 +9,7 @@ import com.sagar.lotse.repository.OrganizationRepository;
 import com.sagar.lotse.util.GenericFileUtil;
 import com.sagar.lotse.util.NullAwareBeanUtil;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.beanutils.BeanUtilsBean;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class OrganizationServiceImpl implements OrganizationService, CommonMessa
     private final OrganizationRepository organizationRepository;
     private final OrganizationHelper organizationHelper;
     private final GenericFileUtil genericFileUtil;
-    private final NullAwareBeanUtil nullAwareBeanUtil = new NullAwareBeanUtil();
+    private final BeanUtilsBean nullAwareBeanUtil = new NullAwareBeanUtil();
 
 
     @Override
@@ -35,6 +36,8 @@ public class OrganizationServiceImpl implements OrganizationService, CommonMessa
                 nullAwareBeanUtil.copyProperties(organizationInfo, organizationRequestPojo);
                 logo = genericFileUtil.saveFileToTemp(organizationRequestPojo.getLogo());
                 organizationInfo.setCreatedIn(LocalDateTime.now());
+                organizationInfo.setCreatedIn(LocalDateTime.now());
+                organizationInfo.setCreatedBy(1);
             } else {
                 existingOrganizationInfo = organizationRepository.findById(organizationRequestPojo.getId())
                         .orElseThrow(() -> new RuntimeException(ORGANIZATION + DATA_NOT_FOUND));
