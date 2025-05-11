@@ -58,7 +58,6 @@ public class UsersInfoServiceImpl implements UsersInfoService, CommonMessages {
                 userImage = genericFileUtil.updateFile(usersBasicInfoRequestPojo.getUserImage(),
                         existingUsersBasicInfo.getUserImage());
             }
-
             userImage = genericFileUtil.saveFile(userImage);
             usersBasicInfo.setUserImage(userImage);
             usersBasicInfoRepository.save(usersBasicInfo);
