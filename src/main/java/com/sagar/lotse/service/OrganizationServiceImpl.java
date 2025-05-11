@@ -2,6 +2,7 @@ package com.sagar.lotse.service;
 
 import com.sagar.lotse.common.constant.CommonMessages;
 import com.sagar.lotse.entity.OrganizationInfo;
+import com.sagar.lotse.exception.DataNotFoundException;
 import com.sagar.lotse.helper.OrganizationHelper;
 import com.sagar.lotse.pojo.common.request.OrganizationRequestPojo;
 import com.sagar.lotse.pojo.common.response.OrganizationResponsePojo;
@@ -9,10 +10,12 @@ import com.sagar.lotse.repository.OrganizationRepository;
 import com.sagar.lotse.util.GenericFileUtil;
 import com.sagar.lotse.util.NullAwareBeanUtil;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.beanutils.BeanUtilsBean;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,7 +25,7 @@ public class OrganizationServiceImpl implements OrganizationService, CommonMessa
     private final OrganizationRepository organizationRepository;
     private final OrganizationHelper organizationHelper;
     private final GenericFileUtil genericFileUtil;
-    private final NullAwareBeanUtil nullAwareBeanUtil = new NullAwareBeanUtil();
+    private final BeanUtilsBean nullAwareBeanUtil = new NullAwareBeanUtil();
 
 
     @Override
@@ -35,6 +38,8 @@ public class OrganizationServiceImpl implements OrganizationService, CommonMessa
                 nullAwareBeanUtil.copyProperties(organizationInfo, organizationRequestPojo);
                 logo = genericFileUtil.saveFileToTemp(organizationRequestPojo.getLogo());
                 organizationInfo.setCreatedIn(LocalDateTime.now());
+                organizationInfo.setCreatedIn(LocalDateTime.now());
+                organizationInfo.setCreatedBy(1);
             } else {
                 existingOrganizationInfo = organizationRepository.findById(organizationRequestPojo.getId())
                         .orElseThrow(() -> new RuntimeException(ORGANIZATION + DATA_NOT_FOUND));
@@ -69,14 +74,21 @@ public class OrganizationServiceImpl implements OrganizationService, CommonMessa
     @Override
     public List<OrganizationResponsePojo> getOrganization(Integer id) {
         try {
-            if (id != null) {
-                return organizationHelper.getOrganizationById(id);
-            } else {
-                return organizationHelper.getAllOrganizations();
-            }
+            List<OrganizationInfo> organizationInfoList = organizationRepository.getAllOrganizations(id);
+            List<OrganizationResponsePojo> organizationResponsePojoList = new ArrayList<>();
+            organizationInfoList.forEach(organizationInfo -> {
+                OrganizationResponsePojo organizationResponsePojo = OrganizationResponsePojo.builder()
+                        .id(organizationInfo.getId())
+                        .organizationName(organizationInfo.getOrganizationName())
+                        .address(organizationInfo.getAddress())
+                        .panOrVat(organizationInfo.getPanOrVat())
+                        .logo(organizationInfo.getImageLogo())
+                        .build();
+                organizationResponsePojoList.add(organizationResponsePojo);
+            });
+            return organizationResponsePojoList;
         } catch (Exception e) {
-
+            throw new DataNotFoundException(ORGANIZATION + DATA_NOT_FOUND);
         }
-        return List.of();
     }
 }

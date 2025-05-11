@@ -5,6 +5,7 @@ import com.sagar.lotse.pojo.common.response.GlobalApiResponse;
 import com.sagar.lotse.pojo.common.request.OrganizationRequestPojo;
 import com.sagar.lotse.pojo.common.response.OrganizationResponsePojo;
 import com.sagar.lotse.service.OrganizationService;
+import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class OrganizationController implements CommonMessages {
     }
 
     @PostMapping("getOrganization")
-    public ResponseEntity<GlobalApiResponse> getOrganization(@RequestParam Integer id) {
+    public ResponseEntity<GlobalApiResponse> getOrganization(@RequestParam @Nullable Integer id) {
         List<OrganizationResponsePojo> organizationResponsePojos = organizationService.getOrganization(id);
         return ResponseEntity.ok(GlobalApiResponse
                 .builder()
